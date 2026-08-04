@@ -2,6 +2,10 @@ on:
   pull_request:
     types: [ opened, edited ]
 name: conventional-release-labels
+permissions:
+  contents: read
+  # The action reads the PR title and writes release labels back onto the PR.
+  pull-requests: write
 jobs:
   label:
     runs-on: ubuntu-latest
