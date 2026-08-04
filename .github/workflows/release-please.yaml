@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
     - name: install
       run: npm ci
     - name: build
@@ -42,7 +42,7 @@ jobs:
         echo "${DIFF}" >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
     - name: Create PR with dist
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@18f7dc018cc2cd597073088f7c7591b9d1c02672 # v3.14.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: Build dist
@@ -59,7 +59,7 @@ jobs:
     needs: [build]
     steps:
       - id: release-pr
-        uses: GoogleCloudPlatform/release-please-action@main
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
@@ -67,7 +67,7 @@ jobs:
           command: release-pr
       - id: label
         if: ${{ steps.release-pr.outputs.pr }}
-        uses: actions/github-script@v3
+        uses: actions/github-script@ffc2c79a5b2490bd33e0a41c1de74b877714d736 # v3.2.0
         with:
             github-token: ${{secrets.GITHUB_TOKEN}}
             script: |
@@ -83,14 +83,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: GoogleCloudPlatform/release-please-action@main
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: ${{env.ACTION_NAME}}
           command: github-release
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: tag major and patch versions
         run: |
           git config user.name github-actions[bot]
