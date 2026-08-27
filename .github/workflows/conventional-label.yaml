@@ -2,8 +2,12 @@ on:
   pull_request:
     types: [ opened, edited ]
 name: conventional-release-labels
+permissions:
+  contents: read
+  # The action reads the PR title and writes release labels back onto the PR.
+  pull-requests: write
 jobs:
   label:
     runs-on: ubuntu-latest
     steps:
-      - uses: bcoe/conventional-release-labels@v1
+      - uses: bcoe/conventional-release-labels@886f696738527c7be444262c327c89436dfb95a8 # v1.3.1
